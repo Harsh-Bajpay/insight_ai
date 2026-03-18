@@ -5,8 +5,8 @@ import { DashboardCanvas } from './components/DashboardCanvas'
 import { FileUpload } from './components/FileUpload'
 import { Activity, Sparkles, Database, TableProperties } from 'lucide-react'
 
-// Allow relative fetching in dev/prod
-const api = axios.create({ baseURL: 'http://localhost:8000/api' });
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const api = axios.create({ baseURL: API_BASE_URL });
 
 export default function App() {
   const [loading, setLoading] = useState(false);

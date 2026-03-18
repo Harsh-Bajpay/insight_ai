@@ -13,6 +13,11 @@ from routers import query
 from services import db_service
 
 CSV_PATH = os.getenv("CSV_PATH", "../dataset.csv")
+FRONTEND_ORIGINS = os.getenv(
+    "FRONTEND_ORIGINS",
+    "http://localhost:5173,http://localhost:5174,http://localhost:3000"
+)
+TRUSTED_HOSTS = os.getenv("TRUSTED_HOSTS", "localhost,127.0.0.1")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -38,21 +43,16 @@ app.add_middleware(SlowAPIMiddleware)
 # Allow Restricted CORS for Next.js frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173", 
-        "http://localhost:5174",
-        "http://localhost:3000",
-        "https://your-production-domain.com"
-    ],
+    allow_origins=[origin.strip() for origin in FRONTEND_ORIGINS.split(",") if origin.strip()],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
     allow_headers=["*"],
 )
 
 # Enforce Trusted Hosts
 app.add_middleware(
-    TrustedHostMiddleware, allowed_hosts=["localhost", "127.0.0.1", "*.your-production-domain.com"]
+    TrustedHostMiddleware,
+    allowed_hosts=[host.strip() for host in TRUSTED_HOSTS.split(",") if host.strip()]
 )
 
 # Inject Strict HTTP Security Headers

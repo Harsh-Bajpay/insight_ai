@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { UploadCloud, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Button } from './ui/core';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+
 interface FileUploadProps {
     onUploadSuccess: (schema: string) => void;
 }
@@ -18,7 +20,7 @@ export function FileUpload({ onUploadSuccess }: FileUploadProps) {
         formData.append("file", file);
 
         try {
-            const res = await fetch('http://localhost:8000/api/upload', {
+            const res = await fetch(`${API_BASE_URL}/upload`, {
                 method: 'POST',
                 body: formData,
             });
