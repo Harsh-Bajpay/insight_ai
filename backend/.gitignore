@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.env
+
+# Uploads directory
+../uploads/
+uploads/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Tests
+.pytest_cache/
+coverage.xml
+
+# Databases
+*.duckdb
+*.db
+*.sqlite3
+
+# Logs
+*.log

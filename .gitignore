@@ -1,0 +1,8 @@
+# Root gitignore
+.DS_Store
+.env
+.env.*
+uploads/
+
+# Optional: Ignore large datasets if needed
+# dataset.csv
